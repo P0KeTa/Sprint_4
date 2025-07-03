@@ -4,6 +4,8 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+import static org.junit.Assert.*;
+
 @RunWith(Parameterized.class)
 public class OrderPageTest extends BaseTest {
 
@@ -64,7 +66,7 @@ public class OrderPageTest extends BaseTest {
         //Проверка наличия элемента "Хотите оформить заказ?" и нажатие кнопки Да
         objOrderPage.checkCompleteSetOrder();
         //Проверка наличия элемента Заказ оформлен с номером заказа
-        Assert.assertTrue("Заказ не оформлен", objOrderPage.checkOrderComplete());
+        assertTrue("Заказ не оформлен", objOrderPage.checkOrderComplete());
     }
 
     @Test
@@ -85,11 +87,11 @@ public class OrderPageTest extends BaseTest {
         //Нажатие на кнопку Далее не заполняя поля
         objOrderPage.clickCOMPLETE_BUTTON();
         //Проверка сообщения об ошибке в каждом поле
-        Assert.assertTrue("Нет сообщения об ошибке ввода поля Имя ", objOrderPage.checkErrorNameMessage());
-        Assert.assertTrue("Нет сообщения об ошибке ввода поля Фамилия ", objOrderPage.checkErrorSurnameMessage());
-        Assert.assertTrue("Нет сообщения об ошибке ввода поля Адрес ", objOrderPage.checkErrorAddressMessage());
-        Assert.assertTrue("Нет сообщения об ошибке ввода поля Метро ", objOrderPage.checkErrorMetroMessage());
-        Assert.assertTrue("Нет сообщения об ошибке ввода поля Телефон ", objOrderPage.checkErrorPhoneMessage());
+        assertTrue("Нет сообщения об ошибке ввода поля Имя ", objOrderPage.checkErrorNameMessage());
+        assertTrue("Нет сообщения об ошибке ввода поля Фамилия ", objOrderPage.checkErrorSurnameMessage());
+        assertTrue("Нет сообщения об ошибке ввода поля Адрес ", objOrderPage.checkErrorAddressMessage());
+        assertTrue("Нет сообщения об ошибке ввода поля Метро ", objOrderPage.checkErrorMetroMessage());
+        assertTrue("Нет сообщения об ошибке ввода поля Телефон ", objOrderPage.checkErrorPhoneMessage());
         //Ввод валидных данных в поля и нажатие кнопки далее
         objOrderPage.setOrderAndClickButton1(name, surname, address, dropdownValue, phone);
         //Во второй части заказа нет ошибок у полей.

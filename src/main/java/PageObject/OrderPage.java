@@ -1,6 +1,7 @@
 package PageObject;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -49,9 +50,10 @@ public class OrderPage extends MainPage {
     private final By PHONE_ERROR_MESSAGE = By.xpath(".//div[text()='Введите корректный номер']");
 
     //Ошибки полей второй части заказа.
-    //Оставил поля не заполненные потому что нет ошибок во второй части заказа
+
+    /*Оставил поля не заполненные потому что нет ошибок во второй части заказа
     private final By DATE_ERROR_MESSAGE = By.xpath("___");
-    private final By RENTAL_PERIOD_ERROR_MESSAGE = By.xpath("___");
+    private final By RENTAL_PERIOD_ERROR_MESSAGE = By.xpath("___");*/
 
     public OrderPage(WebDriver driver) {
         super(driver);
@@ -94,7 +96,9 @@ public class OrderPage extends MainPage {
 
     public void clickAndSetMetroDropdown(String dropdownValue) {
         driver.findElement(METRO_DROPDOWN).sendKeys(dropdownValue);
-        driver.findElement(METRO_DROPDOWN_VALUE).click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(METRO_DROPDOWN_VALUE)).click().perform();
+
     }
 
     public void clickAndSetDate(int option) {
@@ -164,8 +168,8 @@ public class OrderPage extends MainPage {
     public boolean checkOrderComplete() {
         //Проверка наличия "номера заказа"
         boolean isEnable = false;
-        WebElement isOrderNumber = driver.findElement(By.className("Order_Text__2broi"));
-        if (isOrderNumber.isDisplayed()) {
+        WebElement orderNumber = driver.findElement(By.className("Order_Text__2broi"));
+        if (orderNumber.isDisplayed()) {
             isEnable = true;
             return isEnable;
         }

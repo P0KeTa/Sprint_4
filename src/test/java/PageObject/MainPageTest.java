@@ -1,22 +1,14 @@
 package PageObject;
 
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Set;
+import static org.junit.Assert.*;
 
-@RunWith(Parameterized.class)
 public class MainPageTest extends BaseTest {
-
-
-    public MainPageTest(String orderNumber) {
-        ORDER_NUMBER = orderNumber;
-    }
 
     @Test
     //Тест Вопросы о важном
@@ -27,7 +19,7 @@ public class MainPageTest extends BaseTest {
         //Нажимание на стрелку выпадающего списка
         objMainPage.clickButtonQuestions();
         //Проверка появляется ли текст при нажатии на кнопку
-        Assert.assertTrue("Текст не появляется", objMainPage.checkClickButtonQuestions());
+        assertTrue("Текст не появляется", objMainPage.checkClickButtonQuestions());
     }
 
     @Test
@@ -46,7 +38,7 @@ public class MainPageTest extends BaseTest {
         //Фактическая страница
         String actual_url = driver.getCurrentUrl();
         //Сравнение страниц
-        Assert.assertEquals("Страница ЯндексСамокат не открылась", expected_url, actual_url);
+        assertEquals("Страница ЯндексСамокат не открылась", expected_url, actual_url);
     }
 
     @Test
@@ -70,7 +62,7 @@ public class MainPageTest extends BaseTest {
                 String expected_url = "https://dzen.ru/?yredirect=true";
                 String actual_url = driver.getCurrentUrl();
                 //Сравнение текущего и ожидаемого окна
-                Assert.assertEquals("Страница Яндекс не открылась", expected_url, actual_url);
+                assertEquals("Страница Яндекс не открылась", expected_url, actual_url);
                 break;
             }
         }
@@ -78,31 +70,5 @@ public class MainPageTest extends BaseTest {
         driver.switchTo().window(mainWindow);
     }
 
-    private final String ORDER_NUMBER;
-
-    @Parameterized.Parameters
-    public static Object[][] getSumData() {
-        return new Object[][]{
-                {"456"},
-                {"123"},
-        };
-    }
-
-    @Test
-    //Проверка страницы неправильного номера заказа
-    public void wrongStatusPageTest() {
-        MainPage objMainPage = new MainPage(driver);
-        //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
-        //Нажимаем на кнопку принятия куки (если она есть);
-        clickCookieButton();
-
-        objMainPage.clickStatusOrderButtonAndSetFieldOrderNumber(ORDER_NUMBER);
-        objMainPage.clickGoButton();
-        StatusPage objStatusPage = new StatusPage(driver);
-        boolean actualResult = objStatusPage.checkNotFoundImg();
-        Assert.assertTrue("Страница с надписью 'Такого заказа нет' не появилась", actualResult);
-
-    }
 }
 

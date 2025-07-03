@@ -30,8 +30,6 @@ public class MainPage {
     private final By NUMBER_FIELD_ORDER = By.xpath(".//input[@class='Input_Input__1iN_Z Header_Input__xIoUq']");
     //Кнопка Go
     private final By GO_BUTTON = By.xpath(".//button[@class='Button_Button__ra12g Header_Button__28dPO']");
-    //Номер заказа
-    private final String ORDER_NUMBER = null;
 
     //Конструктор
     public MainPage(WebDriver driver) {
@@ -85,10 +83,14 @@ public class MainPage {
         driver.findElement(YANDEX_LOGO).click();
     }
 
-    //Клик по кнопке Статуса Заказа и ввод в поле номера заказа
-    public void clickStatusOrderButtonAndSetFieldOrderNumber(String orderNumber) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+    //Клик по кнопке Статуса Заказа
+    public void clickStatusOrderButton() {
         driver.findElement(STATUS_ORDER_BUTTON).click();
+    }
+
+    //Ввод значения в поле "Номера заказа"
+    public void setFieldOrderNumber(String orderNumber) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         WebElement input = wait.until(ExpectedConditions.elementToBeClickable(NUMBER_FIELD_ORDER));
         input.sendKeys(orderNumber);
     }
