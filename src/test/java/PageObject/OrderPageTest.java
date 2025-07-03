@@ -72,7 +72,6 @@ public class OrderPageTest extends BaseTest {
     @Test
     //Проверка ошибок для всех полей формы заказа
     public void orderAllFieldTest() {
-        MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
         goPage("https://qa-scooter.praktikum-services.ru/");
         //Нажимаем на кнопку принятия куки (если она есть);
