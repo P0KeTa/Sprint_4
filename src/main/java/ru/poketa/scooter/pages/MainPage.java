@@ -1,4 +1,4 @@
-package PageObject;
+package ru.poketa.scooter.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +10,9 @@ import java.util.Objects;
 public class MainPage {
 
     protected final WebDriver driver;
+
+    //Тестируемая страница
+    private final String TEST_PAGE = "https://qa-scooter.praktikum-services.ru/";
     //Стрелка блока "Вопросы о важном"
     private final By BUTTON_QUESTIONS = By.xpath(".//div[@id='accordion__heading-0']");
     //Верхняя кнопка заказа (справа сверху)
@@ -57,10 +60,12 @@ public class MainPage {
         if (Objects.equals(option, "top")) {
             driver.findElement(TOP_ORDER_BUTTON).click();
         } else if (Objects.equals(option, "down")) {
+            //Ожидание пока кнопка будет кликабельна
+            new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(SCROLL_ORDER_BUTTON));
             WebElement element = driver.findElement(SCROLL_ORDER_BUTTON);
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();"
                     , element);
-            driver.findElement(SCROLL_ORDER_BUTTON).click();
+            element.click();
         }
     }
 
@@ -98,6 +103,12 @@ public class MainPage {
     //Клик по кнопке Go
     public void clickGoButton() {
         driver.findElement(GO_BUTTON).click();
+    }
+
+    //Геттеры
+
+    public String getTEST_PAGE() {
+        return TEST_PAGE;
     }
 
 

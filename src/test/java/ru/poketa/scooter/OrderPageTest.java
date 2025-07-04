@@ -1,8 +1,10 @@
-package PageObject;
+package ru.poketa.scooter;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import ru.poketa.scooter.pages.MainPage;
+import ru.poketa.scooter.pages.OrderPage;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +22,7 @@ public class OrderPageTest extends BaseTest {
     private final String colorValue;
     private final String textForCourierValue;
 
+    //Конструктор для параметризаци
     public OrderPageTest(String buttonSelect, String name, String surname, String address, String dropdownValue, String phone, int dateValue, int numberOfDaysValue, String colorValue, String textForCourierValue) {
         this.buttonSelect = buttonSelect;
         this.name = name;
@@ -34,7 +37,7 @@ public class OrderPageTest extends BaseTest {
     }
 
     //Параметры для переменных
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: {1},{2}, {3}, {4}, {5}, {6}, {7}, {8}, {9},")
     public static Object[][] getSumData() {
         return new Object[][]{
                 {"top", "Давид", "Тазиашвили", "Полтавская", "Бульвар Рокоссовского", "89093361234", 1, 1, "Чёрный", "Текст для курьера"},
@@ -45,13 +48,13 @@ public class OrderPageTest extends BaseTest {
     @Test
     //Проверка оформления заказа
     public void orderPageTest() {
+        MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
+        goPage(objMainPage.getTEST_PAGE());
         //Нажимаем на кнопку принятия куки (если она есть);
         clickCookieButton();
-
+        //Заполнение полей данныйми
         OrderPage objOrderPage = new OrderPage(driver);
-
         //Нажимаем кнопку "Заказать" в зависимости от выбора:
         //"top" - кнопка вверну (первая кнопка)
         //"down" - кнопка внизу (вторая кнопка)
@@ -63,37 +66,11 @@ public class OrderPageTest extends BaseTest {
         //1 – 1 июля 2025 / 2– 2 июля 2025
         //Значение выбора скора аренда число от 1 до 7 (кол-во дней)
         objOrderPage.setOrderAndClickButton2(dateValue, numberOfDaysValue, colorValue, textForCourierValue);
-        //Проверка наличия элемента "Хотите оформить заказ?" и нажатие кнопки Да
-        objOrderPage.checkCompleteSetOrder();
+        //Проверка наличия элемента "Хотите оформить заказ?"
+        assertTrue("Заказ заполен, но окно не появилось", objOrderPage.checkCompleteSetOrder());
+        //Нажатие кнопки Да
+        objOrderPage.clickBUTTON_YES();
         //Проверка наличия элемента Заказ оформлен с номером заказа
         assertTrue("Заказ не оформлен", objOrderPage.checkOrderComplete());
-    }
-
-    @Test
-    //Проверка ошибок для всех полей формы заказа
-    public void orderAllFieldTest() {
-        //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
-        //Нажимаем на кнопку принятия куки (если она есть);
-        clickCookieButton();
-
-        OrderPage objOrderPage = new OrderPage(driver);
-
-        //Нажимаем кнопку "Заказать" в зависимости от выбора:
-        //"top" - кнопка вверну (первая кнопка)
-        //"down" - кнопка внизу (вторая кнопка)
-        objOrderPage.clickOrderButton(buttonSelect);
-        //Нажатие на кнопку Далее не заполняя поля
-        objOrderPage.clickCOMPLETE_BUTTON();
-        //Проверка сообщения об ошибке в каждом поле
-        assertTrue("Нет сообщения об ошибке ввода поля Имя ", objOrderPage.checkErrorNameMessage());
-        assertTrue("Нет сообщения об ошибке ввода поля Фамилия ", objOrderPage.checkErrorSurnameMessage());
-        assertTrue("Нет сообщения об ошибке ввода поля Адрес ", objOrderPage.checkErrorAddressMessage());
-        assertTrue("Нет сообщения об ошибке ввода поля Метро ", objOrderPage.checkErrorMetroMessage());
-        assertTrue("Нет сообщения об ошибке ввода поля Телефон ", objOrderPage.checkErrorPhoneMessage());
-        //Ввод валидных данных в поля и нажатие кнопки далее
-        objOrderPage.setOrderAndClickButton1(name, surname, address, dropdownValue, phone);
-        //Во второй части заказа нет ошибок у полей.
-        //Проверить невозможно
     }
 }

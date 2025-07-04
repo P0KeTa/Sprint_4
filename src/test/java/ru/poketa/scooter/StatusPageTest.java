@@ -1,8 +1,10 @@
-package PageObject;
+package ru.poketa.scooter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import ru.poketa.scooter.pages.MainPage;
+import ru.poketa.scooter.pages.StatusPage;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +30,7 @@ public class StatusPageTest extends BaseTest {
     public void wrongStatusPageTest() {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
+        goPage(objMainPage.getTEST_PAGE());
         //Нажимаем на кнопку принятия куки (если она есть);
         clickCookieButton();
 

@@ -1,8 +1,10 @@
-package PageObject;
+package ru.poketa.scooter.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.poketa.scooter.data.TestData;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -38,6 +40,12 @@ public class OrderPage extends MainPage {
     private final By INPUT_TEXT_FOR_COURIER = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка Заказать
     private final By DONE_BUTTON = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    //Элемент "Хотите оформить заказ?"
+    private final By WINDOWS_CHECK_PLACE_ORDER = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
+    //кнопка Да
+    private final By BUTTON_YES = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
+    //Окно с номером заказа
+    private final By COMPLETE_ORDER_WINDOW = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
     //Дополнительно задание
 
@@ -58,7 +66,6 @@ public class OrderPage extends MainPage {
     public OrderPage(WebDriver driver) {
         super(driver);
     }
-
 
     public void setOrderAndClickButton1(String name, String surname, String address, String dropdownValue, String phone) {
         driver.findElement(INPUT_NAME).sendKeys(name);
@@ -85,14 +92,13 @@ public class OrderPage extends MainPage {
         driver.findElement(DONE_BUTTON).click();
     }
 
-
-    public void checkCompleteSetOrder() {
-        //Проверка наличия элемента "Хотите оформить заказ?"
-        driver.findElement(By.className("Order_ModalHeader__3FDaJ")).isEnabled();
-        //Нахождение и нажатие кнопки "Да"
-        By buttonYes = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
-        driver.findElement(buttonYes).click();
+    public boolean checkCompleteSetOrder() {
+        return driver.findElement(WINDOWS_CHECK_PLACE_ORDER).isEnabled();
     }
+
+    public void clickBUTTON_YES(){
+        driver.findElement(BUTTON_YES).click();
+    };
 
     public void clickAndSetMetroDropdown(String dropdownValue) {
         driver.findElement(METRO_DROPDOWN).sendKeys(dropdownValue);
@@ -103,52 +109,41 @@ public class OrderPage extends MainPage {
 
     public void clickAndSetDate(int option) {
         driver.findElement(INPUT_DATE).click();
-        By setDate;
+        TestData objTestData = new TestData();
         switch (option) {
             case 1:
-                // 1 июля 2025
-                setDate = By.xpath(".//*[contains(@class,'react-datepicker__day react-datepicker__day--001')]");
-                driver.findElement(setDate).click();
+                driver.findElement(objTestData.getDATE_1_JUNE_2025()).click();
                 break;
             case 2:
-                // 2 июля 2025
-                setDate = By.xpath(".//*[contains(@class,'react-datepicker__day react-datepicker__day--002')]");
-                driver.findElement(setDate).click();
+                driver.findElement(objTestData.getDATE_2_JUNE_2025()).click();
                 break;
         }
     }
 
     public void clickAndSetRentalPeriod(int numberOfDays) {
         driver.findElement(INPUT_RENTAL_PERIOD).click();
-        By setDay;
+        TestData objTestData = new TestData();
         switch (numberOfDays) {
             case 1:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_1()).click();
                 break;
             case 2:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='двое суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_2()).click();
                 break;
             case 3:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='трое суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_3()).click();
                 break;
             case 4:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='четверо суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_4()).click();
                 break;
             case 5:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='пятеро суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_5()).click();
                 break;
             case 6:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='шестеро суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_6()).click();
                 break;
             case 7:
-                setDay = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
-                driver.findElement(setDay).click();
+                driver.findElement(objTestData.getNUMBER_OF_DAYS_7()).click();
                 break;
         }
     }
@@ -166,9 +161,8 @@ public class OrderPage extends MainPage {
     }
 
     public boolean checkOrderComplete() {
-        //Проверка наличия "номера заказа"
         boolean isEnable = false;
-        WebElement orderNumber = driver.findElement(By.className("Order_Text__2broi"));
+        WebElement orderNumber = driver.findElement(COMPLETE_ORDER_WINDOW);
         if (orderNumber.isDisplayed()) {
             isEnable = true;
             return isEnable;
@@ -177,6 +171,7 @@ public class OrderPage extends MainPage {
     }
 
     //Дополнительное задание
+
     public void clickCOMPLETE_BUTTON() {
         driver.findElement(COMPLETE_BUTTON).click();
     }

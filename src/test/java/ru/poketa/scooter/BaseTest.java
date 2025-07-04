@@ -1,4 +1,4 @@
-package PageObject;
+package ru.poketa.scooter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.*;
@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.poketa.scooter.pages.MainPage;
 
 import java.time.Duration;
 import java.util.Objects;

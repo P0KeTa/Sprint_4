@@ -1,8 +1,9 @@
-package PageObject;
+package ru.poketa.scooter;
 
 import org.junit.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.poketa.scooter.pages.MainPage;
 
 import java.time.Duration;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class MainPageTest extends BaseTest {
     public void questionsAboutImportantTest() {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
+        goPage(objMainPage.getTEST_PAGE());
         //Нажимание на стрелку выпадающего списка
         objMainPage.clickButtonQuestions();
         //Проверка появляется ли текст при нажатии на кнопку
@@ -27,14 +28,14 @@ public class MainPageTest extends BaseTest {
     public void scooterLogoTest() {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
+        goPage(objMainPage.getTEST_PAGE());
         //Клик на лого Самокат
         objMainPage.clickScooterLogo();
         //Ожидаем загрузки нужной страницы
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("https://qa-scooter.praktikum-services.ru/"));
+        wait.until(ExpectedConditions.urlContains(objMainPage.getTEST_PAGE()));
         //Ожидаемая страницы
-        String expected_url = "https://qa-scooter.praktikum-services.ru/";
+        String expected_url = objMainPage.getTEST_PAGE();
         //Фактическая страница
         String actual_url = driver.getCurrentUrl();
         //Сравнение страниц
@@ -46,10 +47,10 @@ public class MainPageTest extends BaseTest {
     public void yandexLogoTest() {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage("https://qa-scooter.praktikum-services.ru/");
+        goPage(objMainPage.getTEST_PAGE());
         //Запись id текущей вкладки
         String mainWindow = driver.getWindowHandle();
-        //Клик на логотим Яндекс
+        //Клик на логотип Яндекс
         objMainPage.clickYandexLogo();
         //Ожидание и получение всех окон
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
