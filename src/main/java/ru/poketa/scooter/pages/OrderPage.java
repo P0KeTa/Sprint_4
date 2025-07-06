@@ -63,13 +63,13 @@ public class OrderPage extends MainPage {
 
     //Данные для поля выбора кол-ва дней
 
-    private final By numberOfDays1 = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
-    private final By numberOfDays2 = By.xpath(".//div[@class='Dropdown-option' and text()='двое суток']");
-    private final By numberOfDays3 = By.xpath(".//div[@class='Dropdown-option' and text()='трое суток']");
-    private final By numberOfDays4 = By.xpath(".//div[@class='Dropdown-option' and text()='четверо суток']");
-    private final By numberOfDays5 = By.xpath(".//div[@class='Dropdown-option' and text()='пятеро суток']");
-    private final By numberOfDays6 = By.xpath(".//div[@class='Dropdown-option' and text()='шестеро суток']");
-    private final By numberOfDays7 = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
+    private final By numberOfDaysOne = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
+    private final By numberOfDaysTwo = By.xpath(".//div[@class='Dropdown-option' and text()='двое суток']");
+    private final By numberOfDaysThree = By.xpath(".//div[@class='Dropdown-option' and text()='трое суток']");
+    private final By numberOfDaysFour = By.xpath(".//div[@class='Dropdown-option' and text()='четверо суток']");
+    private final By numberOfDaysFive = By.xpath(".//div[@class='Dropdown-option' and text()='пятеро суток']");
+    private final By numberOfDaysSix = By.xpath(".//div[@class='Dropdown-option' and text()='шестеро суток']");
+    private final By numberOfDaysSeven = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
 
     public OrderPage(WebDriver driver) {
         super(driver);
@@ -83,7 +83,7 @@ public class OrderPage extends MainPage {
         driver.findElement(inputPhone).sendKeys(phone);
     }
 
-    public void clickButton1() {
+    public void clickCompleteButton() {
         driver.findElement(completeButton).click();
     }
 
@@ -102,7 +102,7 @@ public class OrderPage extends MainPage {
         driver.findElement(inputTextForCourier).sendKeys(textForCourier);
     }
 
-    public void clickButton2() {
+    public void clicDonekButton() {
         driver.findElement(doneButton).click();
     }
 
@@ -137,25 +137,25 @@ public class OrderPage extends MainPage {
         driver.findElement(inputRentalPeriod).click();
         switch (numberOfDays) {
             case 1:
-                driver.findElement(getNumberOfDays1()).click();
+                driver.findElement(getNumberOfDaysOne()).click();
                 break;
             case 2:
-                driver.findElement(getNumberOfDays2()).click();
+                driver.findElement(getNumberOfDaysTwo()).click();
                 break;
             case 3:
-                driver.findElement(getNumberOfDays3()).click();
+                driver.findElement(getNumberOfDaysThree()).click();
                 break;
             case 4:
-                driver.findElement(getNumberOfDays4()).click();
+                driver.findElement(getNumberOfDaysFour()).click();
                 break;
             case 5:
-                driver.findElement(getNumberOfDays5()).click();
+                driver.findElement(getNumberOfDaysFive()).click();
                 break;
             case 6:
-                driver.findElement(getNumberOfDays6()).click();
+                driver.findElement(getNumberOfDaysSix()).click();
                 break;
             case 7:
-                driver.findElement(getNumberOfDays7()).click();
+                driver.findElement(getNumberOfDaysSeven()).click();
                 break;
         }
     }
@@ -182,32 +182,32 @@ public class OrderPage extends MainPage {
         return date2June2025;
     }
 
-    public By getNumberOfDays1() {
-        return numberOfDays1;
+    public By getNumberOfDaysOne() {
+        return numberOfDaysOne;
     }
 
-    public By getNumberOfDays2() {
-        return numberOfDays2;
+    public By getNumberOfDaysTwo() {
+        return numberOfDaysTwo;
     }
 
-    public By getNumberOfDays3() {
-        return numberOfDays3;
+    public By getNumberOfDaysThree() {
+        return numberOfDaysThree;
     }
 
-    public By getNumberOfDays4() {
-        return numberOfDays4;
+    public By getNumberOfDaysFour() {
+        return numberOfDaysFour;
     }
 
-    public By getNumberOfDays5() {
-        return numberOfDays5;
+    public By getNumberOfDaysFive() {
+        return numberOfDaysFive;
     }
 
-    public By getNumberOfDays6() {
-        return numberOfDays6;
+    public By getNumberOfDaysSix() {
+        return numberOfDaysSix;
     }
 
-    public By getNumberOfDays7() {
-        return numberOfDays7;
+    public By getNumberOfDaysSeven() {
+        return numberOfDaysSeven;
     }
 
     public boolean checkOrderComplete() {
@@ -221,10 +221,6 @@ public class OrderPage extends MainPage {
     }
 
     //Дополнительное задание
-
-    public void clickCompleteButton() {
-        driver.findElement(completeButton).click();
-    }
 
     public boolean checkErrorNameMessage() {
         return driver.findElement(nameErrorMessage).isDisplayed();

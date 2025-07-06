@@ -51,4 +51,3 @@ public class MainPageTest extends BaseTest {
         objMainPage.switchPage(mainWindow);
     }
 }
-

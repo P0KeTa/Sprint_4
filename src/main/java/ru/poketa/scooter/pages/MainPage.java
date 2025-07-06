@@ -15,24 +15,24 @@ public class MainPage {
     protected final WebDriver driver;
 
     //Блок "Вопросы о важном"
-    //Ключ
-    private final By buttonQuestion1 = By.xpath(".//div[@id='accordion__heading-0']");
-    private final By buttonQuestion2 = By.xpath(".//div[@id='accordion__heading-1']");
-    private final By buttonQuestion3 = By.xpath(".//div[@id='accordion__heading-2']");
-    private final By buttonQuestion4 = By.xpath(".//div[@id='accordion__heading-3']");
-    private final By buttonQuestion5 = By.xpath(".//div[@id='accordion__heading-4']");
-    private final By buttonQuestion6 = By.xpath(".//div[@id='accordion__heading-5']");
-    private final By buttonQuestion7 = By.xpath(".//div[@id='accordion__heading-6']");
-    private final By buttonQuestion8 = By.xpath(".//div[@id='accordion__heading-7']");
-    //Значение (текст)
-    private final By keyButtonQuestion1 = By.xpath(".//div[@id='accordion__panel-0']/p");
-    private final By keyButtonQuestion2 = By.xpath(".//div[@id='accordion__panel-1']/p");
-    private final By keyButtonQuestion3 = By.xpath(".//div[@id='accordion__panel-2']/p");
-    private final By keyButtonQuestion4 = By.xpath(".//div[@id='accordion__panel-3']/p");
-    private final By keyButtonQuestion5 = By.xpath(".//div[@id='accordion__panel-4']/p");
-    private final By keyButtonQuestion6 = By.xpath(".//div[@id='accordion__panel-5']/p");
-    private final By keyButtonQuestion7 = By.xpath(".//div[@id='accordion__panel-6']/p");
-    private final By keyButtonQuestion8 = By.xpath(".//div[@id='accordion__panel-7']/p");
+    //Ключ (вопросы)
+    private final By buttonQuestionPrice = By.xpath(".//div[@id='accordion__heading-0']");
+    private final By buttonQuestionMultipleScooters = By.xpath(".//div[@id='accordion__heading-1']");
+    private final By buttonQuestionRentTime = By.xpath(".//div[@id='accordion__heading-2']");
+    private final By buttonQuestionRentToday = By.xpath(".//div[@id='accordion__heading-3']");
+    private final By buttonQuestionRefundScooters = By.xpath(".//div[@id='accordion__heading-4']");
+    private final By buttonQuestionCharge = By.xpath(".//div[@id='accordion__heading-5']");
+    private final By buttonQuestionCancelOrder = By.xpath(".//div[@id='accordion__heading-6']");
+    private final By buttonQuestionAcrossMRR = By.xpath(".//div[@id='accordion__heading-7']");
+    //Значение (ответ на вопрос)
+    private final By answerButtonQuestionPrice = By.xpath(".//div[@id='accordion__panel-0']/p");
+    private final By answerButtonQuestionMultipleScooters = By.xpath(".//div[@id='accordion__panel-1']/p");
+    private final By answerButtonQuestionTime = By.xpath(".//div[@id='accordion__panel-2']/p");
+    private final By answerButtonQuestionRentToday = By.xpath(".//div[@id='accordion__panel-3']/p");
+    private final By answerButtonQuestionRefundScooters = By.xpath(".//div[@id='accordion__panel-4']/p");
+    private final By answerButtonQuestionCharge = By.xpath(".//div[@id='accordion__panel-5']/p");
+    private final By answerButtonQuestionCancelOrder = By.xpath(".//div[@id='accordion__panel-6']/p");
+    private final By answerButtonQuestionAcrossMRR = By.xpath(".//div[@id='accordion__panel-7']/p");
     //Верхняя кнопка заказа (справа сверху)
     private final By topOrderButton = By.xpath(".//div[@class='Header_Nav__AGCXC']/button[@class='Button_Button__ra12g']");
     //Нижняя кнопка заказа (нужно сделать скрол вниз)
@@ -90,36 +90,36 @@ public class MainPage {
         Map<Integer, String> faqMap = new LinkedHashMap<>();
         switch (numberButtonQuestion) {
             case 1:
-                clickButtonQuestions(buttonQuestion1);
-                faqMap.put(1, getkKeyButtonQuestionsText(keyButtonQuestion1));
+                clickButtonQuestions(buttonQuestionPrice);
+                faqMap.put(1, getkKeyButtonQuestionsText(answerButtonQuestionPrice));
                 break;
             case 2:
-                clickButtonQuestions(buttonQuestion2);
-                faqMap.put(2, getkKeyButtonQuestionsText(keyButtonQuestion2));
+                clickButtonQuestions(buttonQuestionMultipleScooters);
+                faqMap.put(2, getkKeyButtonQuestionsText(answerButtonQuestionMultipleScooters));
                 break;
             case 3:
-                clickButtonQuestions(buttonQuestion3);
-                faqMap.put(3, getkKeyButtonQuestionsText(keyButtonQuestion3));
+                clickButtonQuestions(buttonQuestionRentTime);
+                faqMap.put(3, getkKeyButtonQuestionsText(answerButtonQuestionTime));
                 break;
             case 4:
-                clickButtonQuestions(buttonQuestion4);
-                faqMap.put(4, getkKeyButtonQuestionsText(keyButtonQuestion4));
+                clickButtonQuestions(buttonQuestionRentToday);
+                faqMap.put(4, getkKeyButtonQuestionsText(answerButtonQuestionRentToday));
                 break;
             case 5:
-                clickButtonQuestions(buttonQuestion5);
-                faqMap.put(5, getkKeyButtonQuestionsText(keyButtonQuestion5));
+                clickButtonQuestions(buttonQuestionRefundScooters);
+                faqMap.put(5, getkKeyButtonQuestionsText(answerButtonQuestionRefundScooters));
                 break;
             case 6:
-                clickButtonQuestions(buttonQuestion6);
-                faqMap.put(6, getkKeyButtonQuestionsText(keyButtonQuestion6));
+                clickButtonQuestions(buttonQuestionCharge);
+                faqMap.put(6, getkKeyButtonQuestionsText(answerButtonQuestionCharge));
                 break;
             case 7:
-                clickButtonQuestions(buttonQuestion7);
-                faqMap.put(7, getkKeyButtonQuestionsText(keyButtonQuestion7));
+                clickButtonQuestions(buttonQuestionCancelOrder);
+                faqMap.put(7, getkKeyButtonQuestionsText(answerButtonQuestionCancelOrder));
                 break;
             case 8:
-                clickButtonQuestions(buttonQuestion8);
-                faqMap.put(8, getkKeyButtonQuestionsText(keyButtonQuestion8));
+                clickButtonQuestions(buttonQuestionAcrossMRR);
+                faqMap.put(8, getkKeyButtonQuestionsText(answerButtonQuestionAcrossMRR));
                 break;
         }
         return faqMap;
@@ -197,21 +197,21 @@ public class MainPage {
     public By getButtonQuestion(int textIndex) {
         By tmp = null;
         if (textIndex == 1) {
-            tmp = buttonQuestion1;
+            tmp = buttonQuestionPrice;
         } else if (textIndex == 2) {
-            tmp = buttonQuestion2;
+            tmp = buttonQuestionMultipleScooters;
         }else if (textIndex == 3) {
-            tmp = buttonQuestion3;
+            tmp = buttonQuestionRentTime;
         }else if (textIndex == 4) {
-            tmp = buttonQuestion4;
+            tmp = buttonQuestionRentToday;
         }else if (textIndex == 5) {
-            tmp = buttonQuestion5;
+            tmp = buttonQuestionRefundScooters;
         }else if (textIndex == 6) {
-            tmp = buttonQuestion6;
+            tmp = buttonQuestionCharge;
         }else if (textIndex == 7) {
-            tmp = buttonQuestion7;
+            tmp = buttonQuestionCancelOrder;
         }else if (textIndex == 8) {
-            tmp = buttonQuestion8;
+            tmp = buttonQuestionAcrossMRR;
         }
         return tmp;
     }
@@ -219,21 +219,21 @@ public class MainPage {
     public By getkeyButtonQuestion(int textIndex) {
         By tmp = null;
         if (textIndex == 1) {
-            tmp = keyButtonQuestion1;
+            tmp = answerButtonQuestionPrice;
         } else if (textIndex == 2) {
-            tmp = keyButtonQuestion2;
+            tmp = answerButtonQuestionMultipleScooters;
         }else if (textIndex == 3) {
-            tmp = keyButtonQuestion3;
+            tmp = answerButtonQuestionTime;
         }else if (textIndex == 4) {
-            tmp = keyButtonQuestion4;
+            tmp = answerButtonQuestionRentToday;
         }else if (textIndex == 5) {
-            tmp = keyButtonQuestion5;
+            tmp = answerButtonQuestionRefundScooters;
         }else if (textIndex == 6) {
-            tmp = keyButtonQuestion6;
+            tmp = answerButtonQuestionCharge;
         }else if (textIndex == 7) {
-            tmp = keyButtonQuestion7;
+            tmp = answerButtonQuestionCancelOrder;
         }else if (textIndex == 8) {
-            tmp = keyButtonQuestion8;
+            tmp = answerButtonQuestionAcrossMRR;
         }
         return tmp;
     }
