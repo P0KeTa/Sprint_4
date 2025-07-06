@@ -17,10 +17,10 @@ public class StatusPageTest extends BaseTest {
         ORDER_NUMBER = orderNumber;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: {0}")
     public static Object[][] getSumData() {
         return new Object[][]{
-                {"123"},
+                {"120687"},
                 {"000"},
         };
     }
@@ -30,10 +30,11 @@ public class StatusPageTest extends BaseTest {
     public void wrongStatusPageTest() {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
-        goPage(objMainPage.getTEST_PAGE());
+        goPage(objMainPage.testPage());
+        //Ожидание загрузки страницы
+        waitLoadPage(objMainPage.testPage());
         //Нажимаем на кнопку принятия куки (если она есть);
-        clickCookieButton();
-
+        objMainPage.clickCookieButton();
         //Клик по кнопке Статус заказа
         objMainPage.clickStatusOrderButton();
         //Заполнение поля Номер заказа
@@ -45,7 +46,5 @@ public class StatusPageTest extends BaseTest {
 
         //Фактический результат (если страница есть, то true)
         assertTrue("Страница с надписью 'Такого заказа нет' не появилась", objStatusPage.checkNotFoundImg());
-
     }
-
 }

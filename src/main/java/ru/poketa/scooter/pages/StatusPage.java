@@ -11,18 +11,15 @@ import java.time.Duration;
 
 public class StatusPage extends MainPage{
 
-    private final By NOT_FOUND_IMG = By.xpath(".//img[@alt='Not found']");
+    private final By notFoundImg = By.xpath(".//img[@alt='Not found']");
 
     public StatusPage(WebDriver driver) {
         super(driver);
     }
 
     public boolean checkNotFoundImg() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(NOT_FOUND_IMG));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(notFoundImg));
         return element.isDisplayed();
     }
-
-
-
 }

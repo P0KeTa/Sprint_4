@@ -5,11 +5,11 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.poketa.scooter.pages.MainPage;
 
 import java.time.Duration;
-import java.util.Objects;
 
 public class BaseTest {
 
@@ -40,14 +40,11 @@ public class BaseTest {
 
     public void goPage(String urlPage) {
         driver.get(urlPage);
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                webDriver -> Objects.equals(((JavascriptExecutor) webDriver)
-                        .executeScript("return document.readyState"), "complete")
-        );
     }
 
-    public void clickCookieButton() {
-        mainPage.clickCookieButton();
+    public void waitLoadPage(String urlPage) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.urlContains(urlPage));
     }
 
     @After

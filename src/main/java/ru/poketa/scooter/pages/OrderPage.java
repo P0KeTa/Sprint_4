@@ -2,9 +2,7 @@ package ru.poketa.scooter.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.poketa.scooter.data.TestData;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -14,155 +12,207 @@ public class OrderPage extends MainPage {
     //Поля первой части полей заказа
 
     //Поле Имя
-    private final By INPUT_NAME = By.xpath(".//input[@placeholder='* Имя']");
+    private final By inputName = By.xpath(".//input[@placeholder='* Имя']");
     //Поле Фамилия
-    private final By INPUT_SURNAME = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By inputSurname = By.xpath(".//input[@placeholder='* Фамилия']");
     //Поле Адрес
-    private final By INPUT_ADDRESS = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private final By inputAddress = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     //Поля Метро и значения
-    private final By METRO_DROPDOWN = By.xpath(".//input[@class='select-search__input']");
-    private final By METRO_DROPDOWN_VALUE = By.xpath(".//div[@class='select-search__select']");
+    private final By metroDropdown = By.xpath(".//input[@class='select-search__input']");
+    private final By metroDropdownValue = By.xpath(".//div[@class='select-search__select']");
     //Поле Телефон
-    private final By INPUT_PHONE = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By inputPhone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     //Кнопка Далее
-    private final By COMPLETE_BUTTON = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    private final By completeButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
     //Поля второй части полей заказа
 
     //Поле Дата
-    private final By INPUT_DATE = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private final By inputDate = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     //Поле периода дней
-    private final By INPUT_RENTAL_PERIOD = By.xpath(".//div[@class='Dropdown-placeholder']");
+    private final By inputRentalPeriod = By.xpath(".//div[@class='Dropdown-placeholder']");
     //Поля чекбокса цвета (не обязательные)
-    private final By CHECKBOX_BLACK = By.xpath(".//input[@id='black']");
-    private final By CHECKBOX_GREY = By.xpath(".//input[@id='grey']");
+    private final By checkboxBlack = By.xpath(".//input[@id='black']");
+    private final By checkboxGrey = By.xpath(".//input[@id='grey']");
     //Поле Комментария для курьера (не обязательное)
-    private final By INPUT_TEXT_FOR_COURIER = By.xpath(".//input[@placeholder='Комментарий для курьера']");
+    private final By inputTextForCourier = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка Заказать
-    private final By DONE_BUTTON = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    private final By doneButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
     //Элемент "Хотите оформить заказ?"
-    private final By WINDOWS_CHECK_PLACE_ORDER = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
+    private final By windowsCheckPlaceOrder = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Хотите оформить заказ?']");
     //кнопка Да
-    private final By BUTTON_YES = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
+    private final By buttonYes = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
     //Окно с номером заказа
-    private final By COMPLETE_ORDER_WINDOW = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
+    private final By completeOrderWindow = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
     //Дополнительно задание
 
     //Ошибки полей первой части заказа
 
-    private final By NAME_ERROR_MESSAGE = By.xpath(".//div[text()='Введите корректное имя']");
-    private final By SURNAME_ERROR_MESSAGE = By.xpath(".//div[text()='Введите корректную фамилию']");
-    private final By ADDRESS_ERROR_MESSAGE = By.xpath(".//div[text()='Введите корректный адрес']");
-    private final By METRO_ERROR_MESSAGE = By.xpath(".//div[text()='Выберите станцию']");
-    private final By PHONE_ERROR_MESSAGE = By.xpath(".//div[text()='Введите корректный номер']");
+    private final By nameErrorMessage = By.xpath(".//div[text()='Введите корректное имя']");
+    private final By surnameErrorMessage = By.xpath(".//div[text()='Введите корректную фамилию']");
+    private final By addressErrorMessage = By.xpath(".//div[text()='Введите корректный адрес']");
+    private final By metroErrorMessage = By.xpath(".//div[text()='Выберите станцию']");
+    private final By phoneErrorMessage = By.xpath(".//div[text()='Введите корректный номер']");
 
-    //Ошибки полей второй части заказа.
+    //Данные для поля с датой
+    // 1 июля 2025
+    private final By date1June2025 = By.xpath(".//*[contains(@class,'react-datepicker__day react-datepicker__day--001')]");
+    // 2 июля 2025
+    private final By date2June2025 = By.xpath(".//*[contains(@class,'react-datepicker__day react-datepicker__day--002')]");
 
-    /*Оставил поля не заполненные потому что нет ошибок во второй части заказа
-    private final By DATE_ERROR_MESSAGE = By.xpath("___");
-    private final By RENTAL_PERIOD_ERROR_MESSAGE = By.xpath("___");*/
+    //Данные для поля выбора кол-ва дней
+
+    private final By numberOfDays1 = By.xpath(".//div[@class='Dropdown-option' and text()='сутки']");
+    private final By numberOfDays2 = By.xpath(".//div[@class='Dropdown-option' and text()='двое суток']");
+    private final By numberOfDays3 = By.xpath(".//div[@class='Dropdown-option' and text()='трое суток']");
+    private final By numberOfDays4 = By.xpath(".//div[@class='Dropdown-option' and text()='четверо суток']");
+    private final By numberOfDays5 = By.xpath(".//div[@class='Dropdown-option' and text()='пятеро суток']");
+    private final By numberOfDays6 = By.xpath(".//div[@class='Dropdown-option' and text()='шестеро суток']");
+    private final By numberOfDays7 = By.xpath(".//div[@class='Dropdown-option' and text()='семеро суток']");
 
     public OrderPage(WebDriver driver) {
         super(driver);
     }
 
-    public void setOrderAndClickButton1(String name, String surname, String address, String dropdownValue, String phone) {
-        driver.findElement(INPUT_NAME).sendKeys(name);
-        driver.findElement(INPUT_SURNAME).sendKeys(surname);
-        driver.findElement(INPUT_ADDRESS).sendKeys(address);
+    public void setOrder1(String name, String surname, String address, String dropdownValue, String phone) {
+        driver.findElement(inputName).sendKeys(name);
+        driver.findElement(inputSurname).sendKeys(surname);
+        driver.findElement(inputAddress).sendKeys(address);
         clickAndSetMetroDropdown(dropdownValue);
-        driver.findElement(INPUT_PHONE).sendKeys(phone);
-        driver.findElement(COMPLETE_BUTTON).click();
+        driver.findElement(inputPhone).sendKeys(phone);
     }
 
-    public void setOrderAndClickButton2(int option, int numberOfDays, String color, String textForCourier) {
+    public void clickButton1() {
+        driver.findElement(completeButton).click();
+    }
+
+    public void setOrder2(int option, int numberOfDays, String color, String textForCourier) {
         new WebDriverWait(driver, Duration.ofSeconds(5));
         clickAndSetDate(option);
         clickAndSetRentalPeriod(numberOfDays);
         if (Objects.equals(color, "Чёрный")) {
-            setDropdown(getCHECKBOX_BLACK());
+            setDropdown(getCheckboxBlack());
         } else if (Objects.equals(color, "Серый")) {
-            setDropdown(getCHECKBOX_GREY());
+            setDropdown(getCheckboxGrey());
         } else if (Objects.equals(color, "Чёрный и серый")) {
-            setDropdown(getCHECKBOX_BLACK());
-            setDropdown(getCHECKBOX_GREY());
+            setDropdown(getCheckboxBlack());
+            setDropdown(getCheckboxGrey());
         }
-        driver.findElement(INPUT_TEXT_FOR_COURIER).sendKeys(textForCourier);
-        driver.findElement(DONE_BUTTON).click();
+        driver.findElement(inputTextForCourier).sendKeys(textForCourier);
+    }
+
+    public void clickButton2() {
+        driver.findElement(doneButton).click();
     }
 
     public boolean checkCompleteSetOrder() {
-        return driver.findElement(WINDOWS_CHECK_PLACE_ORDER).isEnabled();
+        return driver.findElement(windowsCheckPlaceOrder).isEnabled();
     }
 
-    public void clickBUTTON_YES(){
-        driver.findElement(BUTTON_YES).click();
-    };
+    public void clickButtonYes() {
+        driver.findElement(buttonYes).click();
+    }
 
     public void clickAndSetMetroDropdown(String dropdownValue) {
-        driver.findElement(METRO_DROPDOWN).sendKeys(dropdownValue);
+        driver.findElement(metroDropdown).sendKeys(dropdownValue);
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(METRO_DROPDOWN_VALUE)).click().perform();
+        actions.moveToElement(driver.findElement(metroDropdownValue)).click().perform();
 
     }
 
     public void clickAndSetDate(int option) {
-        driver.findElement(INPUT_DATE).click();
-        TestData objTestData = new TestData();
+        driver.findElement(inputDate).click();
         switch (option) {
             case 1:
-                driver.findElement(objTestData.getDATE_1_JUNE_2025()).click();
+                driver.findElement(getDate1June2025()).click();
                 break;
             case 2:
-                driver.findElement(objTestData.getDATE_2_JUNE_2025()).click();
+                driver.findElement(getDate2June2025()).click();
                 break;
         }
     }
 
     public void clickAndSetRentalPeriod(int numberOfDays) {
-        driver.findElement(INPUT_RENTAL_PERIOD).click();
-        TestData objTestData = new TestData();
+        driver.findElement(inputRentalPeriod).click();
         switch (numberOfDays) {
             case 1:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_1()).click();
+                driver.findElement(getNumberOfDays1()).click();
                 break;
             case 2:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_2()).click();
+                driver.findElement(getNumberOfDays2()).click();
                 break;
             case 3:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_3()).click();
+                driver.findElement(getNumberOfDays3()).click();
                 break;
             case 4:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_4()).click();
+                driver.findElement(getNumberOfDays4()).click();
                 break;
             case 5:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_5()).click();
+                driver.findElement(getNumberOfDays5()).click();
                 break;
             case 6:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_6()).click();
+                driver.findElement(getNumberOfDays6()).click();
                 break;
             case 7:
-                driver.findElement(objTestData.getNUMBER_OF_DAYS_7()).click();
+                driver.findElement(getNumberOfDays7()).click();
                 break;
         }
-    }
-
-    public By getCHECKBOX_BLACK() {
-        return CHECKBOX_BLACK;
-    }
-
-    public By getCHECKBOX_GREY() {
-        return CHECKBOX_GREY;
     }
 
     public void setDropdown(By checkbox) {
         driver.findElement(checkbox).click();
     }
 
+    //Геттеры
+
+    public By getCheckboxBlack() {
+        return checkboxBlack;
+    }
+
+    public By getCheckboxGrey() {
+        return checkboxGrey;
+    }
+
+    public By getDate1June2025() {
+        return date1June2025;
+    }
+
+    public By getDate2June2025() {
+        return date2June2025;
+    }
+
+    public By getNumberOfDays1() {
+        return numberOfDays1;
+    }
+
+    public By getNumberOfDays2() {
+        return numberOfDays2;
+    }
+
+    public By getNumberOfDays3() {
+        return numberOfDays3;
+    }
+
+    public By getNumberOfDays4() {
+        return numberOfDays4;
+    }
+
+    public By getNumberOfDays5() {
+        return numberOfDays5;
+    }
+
+    public By getNumberOfDays6() {
+        return numberOfDays6;
+    }
+
+    public By getNumberOfDays7() {
+        return numberOfDays7;
+    }
+
     public boolean checkOrderComplete() {
         boolean isEnable = false;
-        WebElement orderNumber = driver.findElement(COMPLETE_ORDER_WINDOW);
+        WebElement orderNumber = driver.findElement(completeOrderWindow);
         if (orderNumber.isDisplayed()) {
             isEnable = true;
             return isEnable;
@@ -172,29 +222,27 @@ public class OrderPage extends MainPage {
 
     //Дополнительное задание
 
-    public void clickCOMPLETE_BUTTON() {
-        driver.findElement(COMPLETE_BUTTON).click();
+    public void clickCompleteButton() {
+        driver.findElement(completeButton).click();
     }
 
     public boolean checkErrorNameMessage() {
-        return driver.findElement(NAME_ERROR_MESSAGE).isDisplayed();
+        return driver.findElement(nameErrorMessage).isDisplayed();
     }
 
     public boolean checkErrorSurnameMessage() {
-        return driver.findElement(SURNAME_ERROR_MESSAGE).isDisplayed();
+        return driver.findElement(surnameErrorMessage).isDisplayed();
     }
 
     public boolean checkErrorAddressMessage() {
-        return driver.findElement(ADDRESS_ERROR_MESSAGE).isDisplayed();
+        return driver.findElement(addressErrorMessage).isDisplayed();
     }
 
     public boolean checkErrorMetroMessage() {
-        return driver.findElement(METRO_ERROR_MESSAGE).isDisplayed();
+        return driver.findElement(metroErrorMessage).isDisplayed();
     }
 
     public boolean checkErrorPhoneMessage() {
-        return driver.findElement(PHONE_ERROR_MESSAGE).isDisplayed();
+        return driver.findElement(phoneErrorMessage).isDisplayed();
     }
-
-
 }
