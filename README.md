@@ -7,7 +7,7 @@
 - Java 11
 - Maven
 - Selenium 4.33.0
-- JUnit 4
+- JUnit 5
 - ChromeDriver
 - FirefoxDriver
 

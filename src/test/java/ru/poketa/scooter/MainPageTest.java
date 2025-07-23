@@ -1,9 +1,9 @@
 package ru.poketa.scooter;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 import ru.poketa.scooter.pages.MainPage;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPageTest extends BaseTest {
 
@@ -21,7 +21,7 @@ public class MainPageTest extends BaseTest {
         String expected_url = objMainPage.testPage();
         String actual_url = driver.getCurrentUrl();
         //Сравнение страниц
-        assertEquals("Страница ЯндексСамокат не открылась", expected_url, actual_url);
+        assertEquals(expected_url, actual_url, "Страница ЯндексСамокат не открылась");
     }
 
     @Test
@@ -43,7 +43,7 @@ public class MainPageTest extends BaseTest {
                 String expected_url = "https://dzen.ru/?yredirect=true";
                 String actual_url = driver.getCurrentUrl();
                 //Сравнение текущего и ожидаемого окна
-                assertEquals("Страница Яндекс не открылась", expected_url, actual_url);
+                assertEquals(expected_url, actual_url, "Страница Яндекс не открылась");
                 break;
             }
         }

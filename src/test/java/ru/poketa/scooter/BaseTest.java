@@ -1,7 +1,7 @@
 package ru.poketa.scooter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.*;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,7 +16,7 @@ public class BaseTest {
     WebDriver driver;
     MainPage mainPage;
 
-    @Before
+    @BeforeEach
     public void initBrowser() {
         String browser = System.getProperty("browser", "chrome"); // "chrome" — значение по умолчанию
         if (browser.equals("chrome")) {
@@ -47,7 +47,7 @@ public class BaseTest {
         wait.until(ExpectedConditions.urlContains(urlPage));
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         driver.quit();
     }

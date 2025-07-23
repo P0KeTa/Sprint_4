@@ -1,51 +1,16 @@
 package ru.poketa.scooter;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.poketa.scooter.pages.MainPage;
 import ru.poketa.scooter.pages.OrderPage;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Parameterized.class)
 public class OrderPageTest extends BaseTest {
 
-    private final String buttonSelect;
-    private final String name;
-    private final String surname;
-    private final String address;
-    private final String phone;
-    private final String dropdownValue;
-    private final int dateValue;
-    private final int numberOfDaysValue;
-    private final String colorValue;
-    private final String textForCourierValue;
 
-    //Конструктор для параметризаци
-    public OrderPageTest(String buttonSelect, String name, String surname, String address, String dropdownValue, String phone, int dateValue, int numberOfDaysValue, String colorValue, String textForCourierValue) {
-        this.buttonSelect = buttonSelect;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.dropdownValue = dropdownValue;
-        this.phone = phone;
-        this.dateValue = dateValue;
-        this.numberOfDaysValue = numberOfDaysValue;
-        this.colorValue = colorValue;
-        this.textForCourierValue = textForCourierValue;
-    }
-
-    //Параметры для переменных
-    @Parameterized.Parameters(name = "Тестовые данные: {1},{2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}")
-    public static Object[][] getSumData() {
-        return new Object[][]{
-                {"top", "Давид", "Тазиашвили", "Полтавская", "Бульвар Рокоссовского", "89093361234", 1, 1, "Чёрный", "Текст для курьера"},
-                {"down", "Олег", "Тинькофф", "Ленина", "Черкизовская", "89093364321", 2, 2, "Серый", "Текст для курьера2"},
-        };
-    }
-
-    private OrderPage getOrderPage() {
+    private OrderPage getOrderPage(String buttonSelect, String name, String surname, String address, String dropdownValue, String phone, int dateValue, int numberOfDaysValue, String colorValue, String textForCourierValue) {
         OrderPage objOrderPage = new OrderPage(driver);
         //Нажимаем кнопку "Заказать" в зависимости от выбора:
         //"top" - кнопка вверну (первая кнопка)
@@ -63,9 +28,11 @@ public class OrderPageTest extends BaseTest {
         return objOrderPage;
     }
 
-    @Test
+    //Параметры для переменных
+    @ParameterizedTest
+    @CsvFileSource(resources = "/dataOrderPageTest.csv")
     //Проверка оформления заказа
-    public void orderPageTest() {
+    public void orderPageTest(String buttonSelect, String name, String surname, String address, String dropdownValue, String phone, int dateValue, int numberOfDaysValue, String colorValue, String textForCourierValue) {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
         goPage(objMainPage.testPage());
@@ -74,12 +41,12 @@ public class OrderPageTest extends BaseTest {
         //Нажимаем на кнопку принятия куки (если она есть);
         objMainPage.clickCookieButton();
         //Заполнение полей данными
-        OrderPage objOrderPage = getOrderPage();
+        OrderPage objOrderPage = getOrderPage(buttonSelect, name, surname, address, dropdownValue, phone, dateValue, numberOfDaysValue, colorValue, textForCourierValue);
         //Проверка наличия элемента "Хотите оформить заказ?"
-        assertTrue("Заказ заполен, но окно не появилось", objOrderPage.checkCompleteSetOrder());
+        assertTrue(objOrderPage.checkCompleteSetOrder(), "Заказ заполен, но окно не появилось");
         //Нажатие кнопки Да
         objOrderPage.clickButtonYes();
         //Проверка наличия элемента Заказ оформлен с номером заказа
-        assertTrue("Заказ не оформлен", objOrderPage.checkOrderComplete());
+        assertTrue(objOrderPage.checkOrderComplete(), "Заказ не оформлен");
     }
 }

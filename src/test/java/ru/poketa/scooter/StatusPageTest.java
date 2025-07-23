@@ -1,33 +1,20 @@
 package ru.poketa.scooter;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import ru.poketa.scooter.pages.MainPage;
 import ru.poketa.scooter.pages.StatusPage;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(Parameterized.class)
 public class StatusPageTest extends BaseTest {
-
-    private final String ORDER_NUMBER;
-
-    public StatusPageTest(String orderNumber) {
-        ORDER_NUMBER = orderNumber;
-    }
-
-    @Parameterized.Parameters(name = "Тестовые данные: {0}")
-    public static Object[][] getSumData() {
-        return new Object[][]{
-                {"120687"},
-                {"000"},
-        };
-    }
-
-    @Test
+    @ParameterizedTest
+    @CsvSource({
+            ("120687"),
+            ("000")
+    })
     //Проверка страницы неправильного номера заказа
-    public void wrongStatusPageTest() {
+    public void wrongStatusPageTest(String orderNumber) {
         MainPage objMainPage = new MainPage(driver);
         //Переход на страницу Яндекс Самокат
         goPage(objMainPage.testPage());
@@ -38,13 +25,13 @@ public class StatusPageTest extends BaseTest {
         //Клик по кнопке Статус заказа
         objMainPage.clickStatusOrderButton();
         //Заполнение поля Номер заказа
-        objMainPage.setFieldOrderNumber(ORDER_NUMBER);
+        objMainPage.setFieldOrderNumber(orderNumber);
         //Клик по кнопке Go
         objMainPage.clickGoButton();
 
         StatusPage objStatusPage = new StatusPage(driver);
 
         //Фактический результат (если страница есть, то true)
-        assertTrue("Страница с надписью 'Такого заказа нет' не появилась", objStatusPage.checkNotFoundImg());
+        assertTrue(objStatusPage.checkNotFoundImg(), "Страница с надписью 'Такого заказа нет' не появилась");
     }
 }
