@@ -27,5 +27,6 @@
 ## 📂 Структура проекта
 - pages/ — Page Object модели
 - tests/ — JUnit тесты
+- test/resources/ – Файлы csv для параметризации тестов
 - BaseTest.java — базовая настройка драйвера
 
